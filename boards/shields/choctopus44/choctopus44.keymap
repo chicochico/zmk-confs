@@ -1,0 +1,124 @@
+/*
+ * Copyright (c) 2021 The ZMK Contributors
+ *
+ * SPDX-License-Identifier: MIT
+ */
+#include <behaviors.dtsi>
+#include <dt-bindings/zmk/keys.h>
+#include <dt-bindings/zmk/bt.h>
+#include <dt-bindings/zmk/outputs.h>
+
+#define BASE    0
+#define COLEMAK 1
+#define LOWER   2
+#define RAISE   3
+#define ADJUST  4
+#define MAGIC   5
+
+// Readability keycodes
+#define BT(n) BT_SEL n
+#define CTL_SPC  &mt LCTRL SPACE
+#define C_VOL_D  &kp LS(LA(C_VOL_DN))
+#define C_VOL_U  &kp LS(LA(C_VOL_UP))
+#define GLM_ESC  &mt GLO_MOD ESC
+#define GLO_MOD  LS(LALT)
+#define LOW_ENT  &lt LOWER ENTER
+#define LSFT_LB  &mt LSHFT LBKT
+#define RAI_ENT  &lt RAISE ENTER
+#define RSFT_RB  &mt RSHFT RBKT
+#define SCRSHOT  &kp LG(LS(N5))
+
+// Using layer taps on thumbs, having quick tap as well helps w/ repeating space/backspace
+&lt {
+    quick_tap_ms = <200>;
+    tapping_term_ms = <120>;
+};
+
+&mt {
+    quick_tap_ms = <200>;
+    tapping_term_ms = <120>;
+};
+
+/ {
+  conditional_layers {
+     compatible = "zmk,conditional-layers";
+     tri_layer {
+         if-layers = <LOWER RAISE>;
+         then-layer = <ADJUST>;
+     };
+  };
+
+  behaviors {
+     tp_media: tap_dance_media {
+         compatible = "zmk,behavior-tap-dance";
+         #binding-cells = <0>;
+         tapping-term-ms = <200>;
+         bindings = <&kp C_PP>, <&kp C_NEXT>, <&kp C_PREV>;
+     };
+   };
+
+  keymap {
+    compatible = "zmk,keymap";
+
+    base_layer {
+        label = "base";
+        bindings = <
+&kp TAB      &kp Q        &kp W        &kp E        &kp R        &kp T                     &kp Y        &kp U        &kp I        &kp O        &kp P        &kp BKSP
+GLM_ESC      &kp A        &kp S        &kp D        &kp F        &kp G                     &kp H        &kp J        &kp K        &kp L        &kp SEMI     &kp QUOT
+LSFT_LB      &kp Z        &kp X        &kp C        &kp V        &kp B        &tp_media    &kp N        &kp M        &kp COMMA    &kp DOT      &kp FSLH     RSFT_RB
+                          &kp LALT     &kp LGUI     LOW_ENT      CTL_SPC                   CTL_SPC      RAI_ENT      &mo MAGIC    &kp RSHIFT     
+        >;
+    };
+
+    colemak_layer {
+        label = "colemak";
+        bindings = <
+&trans       &kp Q        &kp W        &kp F        &kp P        &kp G                     &kp J        &kp L        &kp U        &kp Y        &kp SEMI     &trans
+&trans       &kp A        &kp R        &kp S        &kp T        &kp D                     &kp H        &kp N        &kp E        &kp I        &kp O        &trans
+&trans       &kp Z        &kp X        &kp C        &kp V        &kp B        &trans       &kp K        &kp M        &trans       &trans       &trans       &trans
+                          &trans       &trans       &trans       &trans                    &trans       &trans       &trans       &trans
+        >;
+    };
+
+    lower_layer {
+        label = "lower";
+        bindings = <
+&kp TILDE    &kp EXCL     &kp AT       &kp HASH     &kp DLLR     &kp PRCNT                 &kp CARET    &kp AMPS     &kp ASTRK    &kp LPAR     &kp RPAR     &trans
+&kp GRAVE    &kp N1       &kp N2       &kp N3       &kp N4       &kp N5                    &kp N6       &kp N7       &kp N8       &kp N9       &kp N0       &kp PIPE
+&trans       &kp C_MUTE   C_VOL_D      C_VOL_U      &tp_media    &trans       &trans       &trans       &kp MINUS    &kp UNDER    &kp EQUAL    &kp PLUS     &kp BSLH
+                          &trans       &trans       &trans       &trans                    &trans       &trans       &trans       &trans
+        >;
+    };
+
+    raise_layer {
+        label = "raise";
+        bindings = <
+&kp TILDE    &kp EXCL     &kp AT       &kp HASH     &kp DLLR     &kp PRCNT                 &kp CARET    &kp AMPS     &kp ASTRK    &kp LPAR     &kp RPAR     &trans
+&kp GRAVE    &kp N1       &kp N2       &kp N3       &kp N4       &kp N5                    &kp N6       &kp N7       &kp N8       &kp N9       &kp N0       &kp PIPE
+&trans       &kp C_MUTE   C_VOL_D      C_VOL_U      &tp_media    &trans       &trans       &trans       &kp MINUS    &kp UNDER    &kp EQUAL    &kp PLUS     &kp BSLH
+                          &trans       &trans       &trans       &trans                    &trans       &trans       &trans       &trans
+        >;
+    };
+
+    adjust_layer {
+        label = "adjust";
+        bindings = <
+&bt BT_CLR   &bt BT(0)    &bt BT(1)    &bt BT(2)    &bt BT(3)    &bt BT(4)                 &trans       &trans       &trans       &kp F11      &kp F12      &trans
+&trans       &kp F1       &kp F2       &kp F3       &kp F4       &kp F5                    &kp F6       &kp F7       &kp F8       &kp F9       &kp F10      &trans
+&trans       &trans       &trans       &tog COLEMAK &trans       &trans       &trans       &trans       &trans       &trans       &trans       &trans       &trans
+                          &trans       &trans       &trans       &trans                    &trans       &trans       &trans       &trans
+        >;
+    };
+
+    magic_layer {
+        label = "magic";
+        bindings = <
+&trans       &trans       &trans       &trans       &trans       &trans                    &trans       &trans       &trans       &trans       &trans       &trans
+&trans       &trans       &trans       SCRSHOT      &trans       &trans                    &kp LARW     &kp DARW     &kp UARW     &kp RARW     &trans       &trans
+&trans       &trans       &trans       &trans       &trans       &trans       &trans       &trans       &trans       &trans       &trans       &trans       &trans
+                          &trans       &trans       &trans       &trans                    &trans       &trans       &trans       &trans
+        >;
+    };
+
+  };
+};
