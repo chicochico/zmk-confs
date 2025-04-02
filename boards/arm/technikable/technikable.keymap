@@ -87,7 +87,7 @@
 &kp TAB      &kp Q        &kp W        &kp E        &kp R        &kp T        &kp Y        &kp U        &kp I        &kp O        &kp P        &kp BKSP
 GLM_ESC      &kp A        &kp S        &kp D        &kp F        &kp G        &kp H        &kp J        &kp K        &kp L        &kp SEMI     &kp QUOT
 LSFT_LB      &kp Z        &kp X        &kp C        &kp V        &kp B        &kp N        &kp M        &kp COMMA    &kp DOT      &kp FSLH     RSFT_RB
-                          &kp LALT     &kp LGUI     LOW_ENT      CTL_SPC      CTL_SPC      RAI_ENT      &mo MAGIC    &kp RSHIFT     
+                          &kp LALT     &kp LGUI     &mo LOWER    CTL_SPC      CTL_SPC      RAI_ENT      &mo MAGIC    &kp RSHIFT     
            >;
        };
 
