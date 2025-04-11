@@ -28,7 +28,7 @@
 #define C_VOL_D  &kp LS(LA(C_VOL_DN))
 #define C_VOL_U  &kp LS(LA(C_VOL_UP))
 #define GLM_ESC  &mt GLO_MOD ESC
-#define GLO_MOD  LS(LALT)
+#define GLO_MOD  LCTRL(LALT(LMETA))
 #define LOW_ENT  &lt LOWER ENTER
 #define LSFT_LB  &mt LSHFT LBKT
 #define RAI_ENT  &lt RAISE ENTER
