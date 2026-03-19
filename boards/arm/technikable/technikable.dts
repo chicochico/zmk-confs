@@ -88,8 +88,8 @@
 
 		wakeup-source;
 
-		debounce-press-ms = <1>;
-		debounce-release-ms = <5>;
+		debounce-press-ms = <4>;
+		debounce-release-ms = <4>;
 
 		diode-direction = "col2row";
 
