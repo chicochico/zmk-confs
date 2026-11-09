@@ -21,8 +21,7 @@
 #define C_VOL_D  &kp LS(LA(C_VOL_DN))
 #define C_VOL_U  &kp LS(LA(C_VOL_UP))
 #define GLM_ESC  &mt GLO_MOD ESC
-#define GLO_MOD  LS(LALT)
-#define LOW_ENT  &lt LOWER ENTER
+#define GLO_MOD  LS(LA(LMETA))
 #define LSFT_LB  &mt LSHFT LBKT
 #define RAI_ENT  &lt RAISE ENTER
 #define RSFT_RB  &mt RSHFT RBKT
@@ -52,7 +51,7 @@
      tp_media: tap_dance_media {
          compatible = "zmk,behavior-tap-dance";
          #binding-cells = <0>;
-         tapping-term-ms = <200>;
+         tapping-term-ms = <250>;
          bindings = <&kp C_PP>, <&kp C_NEXT>, <&kp C_PREV>;
      };
    };
@@ -66,7 +65,7 @@
 &kp TAB      &kp Q        &kp W        &kp E        &kp R        &kp T                     &kp Y        &kp U        &kp I        &kp O        &kp P        &kp BKSP
 GLM_ESC      &kp A        &kp S        &kp D        &kp F        &kp G                     &kp H        &kp J        &kp K        &kp L        &kp SEMI     &kp QUOT
 LSFT_LB      &kp Z        &kp X        &kp C        &kp V        &kp B        &tp_media    &kp N        &kp M        &kp COMMA    &kp DOT      &kp FSLH     RSFT_RB
-                          &kp LALT     &kp LGUI     LOW_ENT      CTL_SPC                   CTL_SPC      RAI_ENT      &mo MAGIC    &kp RSHIFT     
+                          &kp LALT     &kp LGUI     &mo LOWER    CTL_SPC                   CTL_SPC      RAI_ENT      &mo MAGIC    &kp RSHIFT     
         >;
     };
 
@@ -83,9 +82,9 @@ LSFT_LB      &kp Z        &kp X        &kp C        &kp V        &kp B        &t
     lower_layer {
         label = "lower";
         bindings = <
-&kp TILDE    &kp EXCL     &kp AT       &kp HASH     &kp DLLR     &kp PRCNT                 &kp CARET    &kp AMPS     &kp ASTRK    &kp LPAR     &kp RPAR     &trans
+&trans       &trans       &trans       &trans       &trans       &trans                    &trans       &trans       &trans       &kp LPAR     &kp RPAR     &trans
 &kp GRAVE    &kp N1       &kp N2       &kp N3       &kp N4       &kp N5                    &kp N6       &kp N7       &kp N8       &kp N9       &kp N0       &kp PIPE
-&trans       &kp C_MUTE   C_VOL_D      C_VOL_U      &tp_media    &trans       &trans       &trans       &kp MINUS    &kp UNDER    &kp EQUAL    &kp PLUS     &kp BSLH
+&trans       &kp C_MUTE   C_VOL_D      C_VOL_U      &tp_media    &trans       &trans       &trans       &trans       &trans       &trans       &trans       &trans
                           &trans       &trans       &trans       &trans                    &trans       &trans       &trans       &trans
         >;
     };
@@ -93,9 +92,9 @@ LSFT_LB      &kp Z        &kp X        &kp C        &kp V        &kp B        &t
     raise_layer {
         label = "raise";
         bindings = <
-&kp TILDE    &kp EXCL     &kp AT       &kp HASH     &kp DLLR     &kp PRCNT                 &kp CARET    &kp AMPS     &kp ASTRK    &kp LPAR     &kp RPAR     &trans
-&kp GRAVE    &kp N1       &kp N2       &kp N3       &kp N4       &kp N5                    &kp N6       &kp N7       &kp N8       &kp N9       &kp N0       &kp PIPE
-&trans       &kp C_MUTE   C_VOL_D      C_VOL_U      &tp_media    &trans       &trans       &trans       &kp MINUS    &kp UNDER    &kp EQUAL    &kp PLUS     &kp BSLH
+&trans       &trans       &trans       &trans       &trans       &trans                    &trans       &trans       &trans       &kp UNDER    &kp PLUS     &trans
+&kp TILDE    &kp EXCL     &kp AT       &kp HASH     &kp DLLR     &kp PRCNT                 &kp CARET    &kp AMPS     &kp ASTRK    &kp MINUS    &kp EQUAL    &kp BSLH
+&trans       &trans       &trans       &trans       &trans       &trans       &trans       &trans       &trans       &trans       &trans       &trans       &trans
                           &trans       &trans       &trans       &trans                    &trans       &trans       &trans       &trans
         >;
     };
